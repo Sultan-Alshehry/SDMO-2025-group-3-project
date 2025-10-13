@@ -8,9 +8,7 @@
 
 3. Compare the accuracy of the implementation output against the accuracy of manual de-duplication.
 
-4. Propose and create a new implementation for de-duplication.
-
-5. Compare the results
+4. Propose and create a new implementation for de-duplication compare the results.
 
 6. Implement unit tests.
 7. Generate quality report.
@@ -22,33 +20,60 @@
 ## Task Groups
 Here are the tasks split in groups, a task in a given group can only be worked
 on when the previous groups are completed
+
 group 0
 
+Tasks:
 1, 2
 
 group 1
 
+Eemeli
+Jeeni
+
+Tasks:
 3, 4
 
 group 2
 
-5, 6, 7
+Riina
+Sultan
+
+Tasks:
+6, 7
 
 group 3
 
+Riina
+Sultan
 8
 
 group 4
 
+Riina
+Sultan
 9
 
 group 5
+
+Tuukka
+Pettri
 
 10, 11
 
 ## Schedule
 
+group 0 15/10 diff 1
+
+group 1 20/10 diff 3
+
+group 2 24/10 diff 2
+
+group 3 26/10 diff 1
+
+group 4 28/10 diff 1
+
+group 5 31/10 diff 2
+
+
 Final deadline: 11/2
-
-
-
