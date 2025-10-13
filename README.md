@@ -33,8 +33,8 @@ The project repository is to be submitted as a .zip file with the following repo
 
 ### Testing plan report
 
-- Description and results of unit test.
-- Affects of unit test on the project.
+- Description and results of the unit tests.
+- Affects of the unit tests on the project.
 
 ### Quality assessment report
 
