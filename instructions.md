@@ -8,13 +8,16 @@
 what they did, why, and their thought process. This will be used later in the project report.
 - If anyone need help with their work they should ask in the group-chat, we'll be happy to help
 
-## Project Steps
 
-1. For each member - Find a GitHub project with +1000 contributors and commits.
-2. Use the provided example implementation to mine the commits and apply Bird heuristic.
-3. Compare the accuracy of the implementation against the accuracy of manual de-duplication.
-4. Propose and create a new implementation for de-duplication.
-5. Compare the results
+## Group 0
+
+Use the example implementation to fetch the commits from a github repo URL or from the path to a
+local clone (clone is prefered)
+upload the before and after csv file to the original-implementation-output-directory
+
+## Group 1
+
+
 
 ## Reporting
 
