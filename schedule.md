@@ -32,11 +32,15 @@ Members: Everyone
 
 Tasks: 1, 2
 
+Deadline: 15/10
+
 ### Group 1
 
 Members: Eemeli, Jeeni
 
 Tasks: 3, 4
+
+Deadline: 20/10
 
 ### Group 2
 
@@ -44,11 +48,15 @@ Members: Riina, Sultan
 
 Tasks: 5, 6
 
+Deadline: 24/10
+
 ### Group 3
 
 Members: Riina, Sultan
 
 Tasks: 7
+
+Deadline: 26/10
 
 ### Group 4
 
@@ -56,25 +64,14 @@ Members: Riina, Sultan
 
 Tasks: 8
 
+Deadline: 28/10
+
 ### Group 5
 
 Members: Tuukka, Pettri
 
 Tasks: 9, 10
 
-## Deadlines 
+Deadline: 31/10
 
-Group 0 deadline: 15/10
-
-Group 1 deadline: 20/10
-
-Group 2 deadline: 24/10
-
-Group 3 deadline: 26/10
-
-Group 4 deadline: 28/10
-
-Group 5 deadline: 31/10
-
-
-Final deadline: 11/2
+## Final Deadline: 11/2
