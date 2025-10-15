@@ -1,0 +1,13 @@
+## Group 0 notes
+
+Chosen repo: electron/electron
+
+From what I have seen the output of the program contained many false positives,
+I believe this is because the logic for processing first and last names is
+insufficient. Some problems that I have noticed are:
+
+1. There are no measures to ensure that a last name exists before searching for
+it in the prefix, causing it to always be true if there is no last name.
+
+2. Extremely short first and last names with only one letter for example are extremely more
+to falsely detect a duplicate. Affected rules: 4, 5, 6, 7
