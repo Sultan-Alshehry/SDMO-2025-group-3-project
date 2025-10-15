@@ -10,17 +10,17 @@
 
 4. Propose and create a new implementation for de-duplication compare the results.
 
-6. Implement unit tests.
+5. Implement unit tests.
 
-7. Generate quality report.
+6. Generate quality report.
 
-8. Edit the program.
+7. Edit the program.
 
-9. Compare the program output before and after the tests.
+8. Compare the program output before and after the tests.
 
-10. Write the testing plan report.
+9. Write the testing plan report.
 
-11. Write the project report.
+10. Write the project report.
 
 ## Task Groups
 Here are the tasks split in groups, a task in a given group can only be worked
@@ -42,25 +42,25 @@ Tasks: 3, 4
 
 Members: Riina, Sultan
 
-Tasks: 6, 7
+Tasks: 5, 6
 
 ### Group 3
 
 Members: Riina, Sultan
 
-Tasks: 8
+Tasks: 7
 
 ### Group 4
 
 Members: Riina, Sultan
 
-Tasks: 9
+Tasks: 8
 
 ### Group 5
 
 Members: Tuukka, Pettri
 
-Tasks: 10, 11
+Tasks: 9, 10
 
 ## Deadlines 
 
