@@ -11,69 +11,70 @@
 4. Propose and create a new implementation for de-duplication compare the results.
 
 6. Implement unit tests.
+
 7. Generate quality report.
+
 8. Edit the program.
+
 9. Compare the program output before and after the tests.
+
 10. Write the testing plan report.
+
 11. Write the project report.
 
 ## Task Groups
 Here are the tasks split in groups, a task in a given group can only be worked
 on when the previous groups are completed
 
-group 0
+### Group 0
 
-Tasks:
-1, 2
+Members: Everyone
 
-group 1
+Tasks: 1, 2
 
-Eemeli
-Jeeni
+### Group 1
 
-Tasks:
-3, 4
+Members: Eemeli, Jeeni
 
-group 2
+Tasks: 3, 4
 
-Riina
-Sultan
+### Group 2
 
-Tasks:
-6, 7
+Members: Riina, Sultan
 
-group 3
+Tasks: 6, 7
 
-Riina
-Sultan
-8
+### Group 3
 
-group 4
+Members: Riina, Sultan
 
-Riina
-Sultan
-9
+Tasks: 8
 
-group 5
+### Group 4
 
-Tuukka
-Pettri
+Members: Riina, Sultan
 
-10, 11
+Tasks: 9
 
-## Schedule
+### Group 5
 
-group 0 15/10 diff 1
+Members: Tuukka, Pettri
 
-group 1 20/10 diff 3
+Tasks: 10, 11
 
-group 2 24/10 diff 2
+## Deadlines 
 
-group 3 26/10 diff 1
+Group 0 deadline: 15/10
 
-group 4 28/10 diff 1
+Group 1 deadline: 20/10
 
-group 5 31/10 diff 2
+Group 2 deadline: 24/10
+
+Group 3 deadline: 26/10
+
+Group 4 deadline: 28/10
+
+Group 5 deadline: 31/10
 
 
 Final deadline: 11/2
