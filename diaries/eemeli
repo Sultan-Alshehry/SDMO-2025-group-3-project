@@ -1,0 +1,7 @@
+group 0
+
+repository: https://github.com/ggml-org/llama.cpp
+
+the program itself contains many false positives and it doesn't really matter setting the threshold higher as it doesn't reduce the amount almost at all. 
+And from what I've seen the program compares the similarity between the devs using matching names and emails and they could be very similiar, yet different 
+and this would fall into the category that they are the same developer even though they are not.
