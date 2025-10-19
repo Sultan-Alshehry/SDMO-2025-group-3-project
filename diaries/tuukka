@@ -1,0 +1,4 @@
+Inspecting the first 600 pairs of the output with a threshold of 0.9:
+- "Contains the initial" is problematic, because it doesn't seem to know how to separate the first or last name from the prefix. This means that the algorithm can pick the initial letter from anywhere within the prefix.
+- Most of the false positives had to do with the conditions 4-7, which kept giving false positives. There weren't many false negatives, but one of the false negatives was due to extra special characters in the name.
+- If someone uses only the initial of their first or last name, it is likely to cause issues with conditions 4-7 and are more likely to be marked as duplicate as the algorithm looks for only two characters.
