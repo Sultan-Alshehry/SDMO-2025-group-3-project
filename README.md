@@ -7,6 +7,35 @@ Some files from this repository were used as a base: https://github.com/M3SOulu/
 
 ## How to use
 
+### Files
+
+* developers.py
+  The new implementation.
+
+* inspect-csv.py
+  A tool for sorting out FPs and TPs.
+
+* original-project1developers.py
+  The original implementation.
+
+* output-inspection
+  Target directory for files written by inspect-csv.py.
+
+* requirements.txt
+  List of dependencies.
+
+* devs 
+  Has the mined developer data from the selected repositories. It includes:
+    * devs.csv
+      A list of developer names and emails
+
+    * original_devs_similarity_t=0.7.csv
+      Duplicate pairs identified using the original implementation.
+
+    * 1k_devs_similarity_t=7.csv
+      A random assortment of 1000 duplicates from the original_devs_similarity_t=0.7.csv file for easier FP and TP identification.
+
+
 ### Main program
 
 ### Inspecting CSV files
