@@ -20,7 +20,7 @@ for commit in Repository("https://github.com/electron/electron").traverse_commit
 
 DEVS = sorted(DEVS)
 
-with open(os.path.join("project1devs", "devs.csv"), 'w', newline='') as csvfile:
+with open(os.path.join("devs", "devs.csv"), 'w', newline='') as csvfile:
     writer = csv.writer(csvfile, delimiter=',', quotechar='"')
     writer.writerow(["name", "email"])
     writer.writerows(DEVS)
@@ -29,7 +29,7 @@ with open(os.path.join("project1devs", "devs.csv"), 'w', newline='') as csvfile:
 
 DEVS = []
 # Read csv file with name,dev columns
-with open(os.path.join("project1devs", "devs.csv"), 'r', newline='') as csvfile:
+with open(os.path.join("devs", "devs.csv"), 'r', newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=',')
     for row in reader:
         DEVS.append(row)
@@ -119,8 +119,8 @@ for dev_a, dev_b in combinations(DEVS, 2):
 cols = ["name_1", "email_1", "name_2", "email_2", "c1", "c2",
         "c3.1", "c3.2", "c4", "c5", "c6", "c7"]
 df = pd.DataFrame(SIMILARITY, columns=cols)
-df.to_csv(os.path.join("project1devs", "devs_similarity.csv"),
-          index=False, header=True)
+# df.to_csv(os.path.join("devs", "devs_similarity.csv"),
+#         index=False, header=True)
 
 
 # Set similarity threshold, check c1-c3 against the threshold
@@ -136,5 +136,5 @@ df = df[df[["c1_check", "c2_check", "c3_check",
 # Omit "check" columns, save to csv
 df = df[["name_1", "email_1", "name_2", "email_2", "c1", "c2",
         "c3.1", "c3.2", "c4", "c5", "c6", "c7"]]
-df.to_csv(os.path.join("project1devs", f"devs_similarity_t={
+df.to_csv(os.path.join("devs", f"devs_similarity_t={
           t}.csv"), index=False, header=True)
