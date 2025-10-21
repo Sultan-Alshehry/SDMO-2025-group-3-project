@@ -1,5 +1,3 @@
-example-files/
-old-devs-output/*/devs_similarity.csv
+old-devs-output/
 SDMO/
-devs/*/devs_similarity.csv
-
+venv/
