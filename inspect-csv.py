@@ -19,7 +19,7 @@ while True:
         print("invalid value, try again")
 
 trueoutput = f"output-inspection/{fileName}-truepositive.csv"
-falseoutput = f"output-inspection/{fileName}-alsepositive.csv"
+falseoutput = f"output-inspection/{fileName}-falsepositive.csv"
 
 tp = 0
 fp = 0
