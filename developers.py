@@ -12,23 +12,24 @@ import os
 # If you provide a URL, it clones the repo, fetches the commits and then deletes it,
 # so for a big project better clone the repo locally and provide filesystem path
 
-from pydriller import Repository
-DEVS = set()
-for commit in Repository("https://github.com/electron/electron").traverse_commits():
-    DEVS.add((commit.author.name, commit.author.email))
-    DEVS.add((commit.committer.name, commit.committer.email))
+# from pydriller import Repository
+# DEVS = set()
+# for commit in Repository("https://github.com/electron/electron").traverse_commits():
+#     DEVS.add((commit.author.name, commit.author.email))
+#     DEVS.add((commit.committer.name, commit.committer.email))
 
-DEVS = sorted(DEVS)
+# DEVS = sorted(DEVS)
 
-with open(os.path.join("devs", "devs.csv"), 'w', newline='') as csvfile:
-    writer = csv.writer(csvfile, delimiter=',', quotechar='"')
-    writer.writerow(["name", "email"])
-    writer.writerows(DEVS)
+# with open(os.path.join("devs", "devs.csv"), 'w', newline='') as csvfile:
+#     writer = csv.writer(csvfile, delimiter=',', quotechar='"')
+#     writer.writerow(["name", "email"])
+#     writer.writerows(DEVS)
 
 # This block of code reads an existing csv of developers
 
 DEVS = []
 # Read csv file with name,dev columns
+
 with open(os.path.join("devs", "devs.csv"), 'r', newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=',')
     for row in reader:
