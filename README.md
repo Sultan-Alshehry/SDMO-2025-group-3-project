@@ -16,3 +16,5 @@ repositories.
 3. Type the number of lines you want to read, or press enter to read the whole file.
 
 4. The FPs and TPs are now separated into two .csv files in output-inspection.
+
+Note: Be careful when naming the .csv file that will be read because the output file will remove the contents of files with the same name.
