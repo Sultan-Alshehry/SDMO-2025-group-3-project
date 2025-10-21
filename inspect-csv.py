@@ -1,9 +1,9 @@
 import os
 
-fileName = ""
-while os.path.exists(fileName) is False:
-    fileName = input("Path to .csv file: ")
-
+filePath = ""
+while os.path.exists(filePath) is False:
+    filePath = input("Path to .csv file: ")
+    fileName = os.path.basename(filePath)
 while True:
     lineCount = input("how many lines do you want to read? \
         press enter to read every line: ")
@@ -27,7 +27,7 @@ fp = 0
 os.makedirs(os.path.dirname(trueoutput), exist_ok=True)
 os.makedirs(os.path.dirname(falseoutput), exist_ok=True)
 
-with open(fileName, "r") as file, \
+with open(filePath, "r") as file, \
         open(trueoutput, "w") as truefile, \
         open(falseoutput, "w") as falsefile:
 
@@ -39,10 +39,20 @@ with open(fileName, "r") as file, \
             break
 
         status = ""
-
+        values = line.strip().split(',')
+        if len(values[0]) > len(values[2]):
+            nameWidth = len(values[0])
+        else:
+            nameWidth = len(values[2])
+        if len(values[1]) > len(values[3]):
+            emailWidth = len(values[1])
+        else:
+            emailWidth = len(values[3])
         while status != "t" and status != "f":
             os.system('cls' if os.name == 'nt' else 'clear')
-            print(line)
+            print(count)
+            print(f"{values[0]:<{nameWidth}}, {values[1]:<{emailWidth}}")
+            print(f"{values[2]:<{nameWidth}}, {values[3]:<{emailWidth}}")
             status = input("t or f?")
 
         if status == "t":
