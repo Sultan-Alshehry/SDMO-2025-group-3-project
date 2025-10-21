@@ -3,6 +3,8 @@
 This is the repository for project 1, identifying unique developers in OSS
 repositories.
 
+Some files from this repository were used as a base: https://github.com/M3SOulu/SDMO2025Project
+
 ## How to use
 
 ### Main program
