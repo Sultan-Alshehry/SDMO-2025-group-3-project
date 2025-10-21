@@ -1,5 +1,5 @@
 example-files/
-original-implementation-output/*/devs_similarity.csv
+old-devs-output/*/devs_similarity.csv
 SDMO/
-new-output/*/devs_similarity.csv
+devs/*/devs_similarity.csv
 
