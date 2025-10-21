@@ -30,7 +30,7 @@ import os
 DEVS = []
 # Read csv file with name,dev columns
 
-with open(os.path.join("devs", "devs.csv"), 'r', newline='') as csvfile:
+with open(os.path.join("devs", "1k_devs_similarity_t=7.csv"), 'r', newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=',')
     for row in reader:
         DEVS.append(row)
@@ -89,27 +89,32 @@ for dev_a, dev_b in combinations(DEVS, 2):
     # Adam Buckland,adam.buckland@rightscale.com,Adam Drago,atdrago@gmail.com,0.5217391304347826,0.30000000000000004,1.0,0.15384615384615385,False,False,False,True
     # full name sim
     c1 = sim(name_a, name_b)
-
     # prefix sim
     c2 = sim(prefix_b, prefix_a)
     # first name sim
     c31 = sim(first_a, first_b)
     # last name sim
     c32 = sim(last_a, last_b)
-    c4 = c5 = c6 = c7 = False
 
     if c1 < 0.6 and (c31 < 0.70 and c32 < 0.85):
         continue
 
+    c4 = c5 = c6 = c7 = False
+
     # Since lastname and initials can be empty, perform appropriate checks
     if i_first_a != "" and last_a != "":
-        c4 = i_first_a in prefix_b and last_a in prefix_b
+        c4 = i_first_a in prefix_b.replace(last_a, "") and last_a in prefix_b
+
     if i_last_a != "":
-        c5 = i_last_a in prefix_b and first_a in prefix_b
+        c5 = i_last_a in prefix_b.replace(
+            first_a, "") and first_a in prefix_b
+
     if i_first_b != "" and last_b != "":
-        c6 = i_first_b in prefix_a and last_b in prefix_a
+        c6 = i_first_b in prefix_a.replace(last_b, "") and last_b in prefix_a
+
     if i_last_b != "":
-        c7 = i_last_b in prefix_a and first_b in prefix_a
+        c7 = i_last_b in prefix_a.replace(
+            first_b, "") and first_b in prefix_a
 
     # Save similarity data for each conditions. Original names are saved
     SIMILARITY.append([dev_a[0], email_a, dev_b[0], email_b,
@@ -120,6 +125,8 @@ for dev_a, dev_b in combinations(DEVS, 2):
 cols = ["name_1", "email_1", "name_2", "email_2", "c1", "c2",
         "c3.1", "c3.2", "c4", "c5", "c6", "c7"]
 df = pd.DataFrame(SIMILARITY, columns=cols)
+df = df.drop_duplicates()
+
 # df.to_csv(os.path.join("devs", "devs_similarity.csv"),
 #         index=False, header=True)
 
