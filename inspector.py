@@ -3,7 +3,7 @@ import os
 filePath = ""
 while os.path.exists(filePath) is False:
     filePath = os.path.normpath(input("Path to .csv file: ").strip())
-    fileName = os.path.basename(filePath)[0]
+    fileName = os.path.basename(filePath)[:-4]
 
 while True:
     lineCount = input("how many lines do you want to read? \
@@ -25,10 +25,10 @@ falseoutput = os.path.join("inspect-output", f"{fileName}-falsepositive.csv")
 tp = 0
 fp = 0
 
-with open(filePath, 'r') as file:
+with open(filePath, 'r', encoding='utf-8') as file:
     fileLines = sum(1 for _ in file)
 
-with open(filePath, "r") as file, \
+with open(filePath, "r", enocding='utf-8') as file, \
         open(trueoutput, "w") as truefile, \
         open(falseoutput, "w") as falsefile:
 
