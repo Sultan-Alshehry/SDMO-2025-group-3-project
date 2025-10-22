@@ -2,9 +2,9 @@ import os
 
 filePath = ""
 while os.path.exists(filePath) is False:
-    filePath = input("Path to .csv file: ")
-    fileName = os.path.basename(filePath)
-    fileName = os.path.splitext(filePath)[0]
+    filePath = os.path.normpath(input("Path to .csv file: ").strip())
+    fileName = os.path.basename(filePath)[0]
+
 while True:
     lineCount = input("how many lines do you want to read? \
         press enter to read every line: ")
@@ -19,14 +19,11 @@ while True:
     except ValueError:
         print("invalid value, try again")
 
-trueoutput = f"inspect-output/{fileName}-truepositive.csv"
-falseoutput = f"inspect-output/{fileName}-falsepositive.csv"
+trueoutput = os.path.join("inspect-output", f"{fileName}-truepositive.csv")
+falseoutput = os.path.join("inspect-output", f"{fileName}-falsepositive.csv")
 
 tp = 0
 fp = 0
-
-os.makedirs(os.path.dirname(trueoutput), exist_ok=True)
-os.makedirs(os.path.dirname(falseoutput), exist_ok=True)
 
 with open(filePath, 'r') as file:
     fileLines = sum(1 for _ in file)
