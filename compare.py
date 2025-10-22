@@ -38,12 +38,12 @@ addedTP = []
 removedFP = []
 removedTP = []
 
-with open(oldFalse, "r") as of, open(newFalse, "r") as nf:
+with open(oldFalse, "r", encoding='utf-8') as of, open(newFalse, "r", encoding='utf-8') as nf:
     nfLines = set(line.strip() for line in nf)
     ofLines = set(line.strip() for line in of)
     removedFP.extend(ofLines - nfLines)
     addedFP.extend(nfLines - ofLines)
-with open(oldTrue, "r") as ot, open(newTrue, "r") as nt:
+with open(oldTrue, "r", encoding='utf-8') as ot, open(newTrue, "r", encoding='utf-8') as nt:
     ntLines = set(line.strip() for line in nt)
     otLines = set(line.strip() for line in ot)
     removedTP.extend(otLines - ntLines)
