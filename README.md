@@ -24,7 +24,7 @@ Some files from this repository were used as a base: https://github.com/M3SOulu/
 
   A program that will compare two FP and two TP files. Run the program in the terminal and paste the path to the files according to the instructions in the terminal. After that the program will create four .csv files in the compare-results/ directory: addedFPs and removedFPs, and addedTPs and removedTPs. The program will also print the number of elements in each file.
 
-  Hint: You'll probably want to choose the original implementation output in devs/ to measure the performance of new implementations.
+  Hint: You'll probably want to choose the old false and true similarity files in devs/ to measure the performance of new implementations compared to the old one.
 
 * old-devs.py
 
