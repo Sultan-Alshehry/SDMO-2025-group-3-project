@@ -28,9 +28,9 @@ fp = 0
 with open(filePath, 'r', encoding='utf-8') as file:
     fileLines = sum(1 for _ in file)
 
-with open(filePath, "r", enocding='utf-8') as file, \
-        open(trueoutput, "w") as truefile, \
-        open(falseoutput, "w") as falsefile:
+with open(filePath, "r", encoding='utf-8') as file, \
+        open(trueoutput, "w", encoding='utf-8') as truefile, \
+        open(falseoutput, "w", encoding='uft-8') as falsefile:
 
     format = file.readline()
     count = 0
