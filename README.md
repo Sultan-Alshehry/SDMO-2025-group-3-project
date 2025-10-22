@@ -13,26 +13,41 @@ Some files from this repository were used as a base: https://github.com/M3SOulu/
   The new implementation.
 
 * inspect-csv.py
-  A tool for sorting out FPs and TPs.
 
-* original-project1developers.py
-  The original implementation.
+  A tool for sorting out FPs and TPs. To use it run it in the terminal and paste the path to the csv file you want to inspect. It will print out the file line by line and all you have to do is press t for a true positive of f for a false positive and press enter. The resulting FP and TP pairs will be stored in files in the inspect-output directory. Lastly the program will print the number of TPs and FPs.
 
-* output-inspection
+* inspect-output/
+
   Target directory for files written by inspect-csv.py.
 
+* compare.py
+
+  A program that will compare two FP and two TP files. Run the program in the terminal and paste the path to the files according to the instructions in the terminal. After that the program will create four .csv files in the compare-results/ directory: addedFPs and removedFPs, and addedTPs and removedTPs. The program will also print the number of elements in each file.
+
+  Hint: You'll probably want to choose the original implementation output in devs/ to measure the performance of new implementations.
+
+* old-devs.py
+
+  The original implementation.
+
 * requirements.txt
+
   List of dependencies.
 
-* devs 
-  Has the mined developer data from the selected repositories. It includes:
+* devs/
+
+  A directory of the mined developer data from the selected repositories. It includes:
+
     * devs.csv
+
       A list of developer names and emails
 
     * original_devs_similarity_t=0.7.csv
+
       Duplicate pairs identified using the original implementation.
 
     * 1k_devs_similarity_t=7.csv
+
       A random assortment of 1000 duplicates from the original_devs_similarity_t=0.7.csv file for easier FP and TP identification.
 
 
