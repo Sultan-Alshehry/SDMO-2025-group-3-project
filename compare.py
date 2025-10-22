@@ -2,25 +2,36 @@ import os
 
 oldFalse = ""
 while not os.path.exists(oldFalse):
-    oldFalse = input("Path to old false positive file: ")
+    oldFalse = os.path.normpath(input("Path to old false positive file: "))
 oldTrue = ""
 while not os.path.exists(oldTrue):
-    oldTrue = input("Path to old true positive file: ")
+    oldTrue = os.path.normpath(input("Path to old true positive file: "))
 newFalse = ""
 while not os.path.exists(newFalse):
-    newFalse = input("Path to new false positive file: ")
+    newFalse = os.path.normpath(input("Path to new false positive file: "))
 newTrue = ""
 while not os.path.exists(newTrue):
-    newTrue = input("Path to new true positive file: ")
+    newTrue = os.path.normpath(input("Path to new true positive file: "))
 
-afName = f"compare-results/{os.path.splitext(
-    os.path.basename(newFalse))[0]}-addedFPs.csv"
-rfName = f"compare-results/{os.path.splitext(
-    os.path.basename(newFalse))[0]}-removedFPs.csv"
-atName = f"compare-results/{os.path.splitext(
-    os.path.basename(newTrue))[0]}-addedTPs.csv"
-rtName = f"compare-results/{os.path.splitext(
-    os.path.basename(newTrue))[0]}-removedTPs.csv"
+afName = os.path.join(
+    "compare-results",
+    f"{os.path.splitext(os.path.basename(newFalse))[0]}-addedFPs.csv"
+)
+
+rfName = os.path.join(
+    "compare-results",
+    f"{os.path.splitext(os.path.basename(newFalse))[0]}-removedFPs.csv"
+)
+
+atName = os.path.join(
+    "compare-results",
+    f"{os.path.splitext(os.path.basename(newTrue))[0]}-addedTPs.csv"
+)
+
+rtName = os.path.join(
+    "compare-results",
+    f"{os.path.splitext(os.path.basename(newTrue))[0]}-removedTPs.csv"
+)
 
 addedFP = []
 addedTP = []
@@ -38,16 +49,16 @@ with open(oldTrue, "r") as ot, open(newTrue, "r") as nt:
     removedTP.extend(otLines - ntLines)
     addedTP.extend(ntLines - otLines)
 
-with open(afName, "w") as af:
+with open(afName, "w", encoding='utf-8') as af:
     for line in addedFP:
         af.write(line + "\n")
-with open(rfName, "w") as rf:
+with open(rfName, "w", encoding='utf-8') as rf:
     for line in removedFP:
         rf.write(line + "\n")
-with open(atName, "w") as at:
+with open(atName, "w", encoding='utf-8') as at:
     for line in addedTP:
         at.write(line + "\n")
-with open(rtName, "w") as rt:
+with open(rtName, "w", encoding='utf-8') as rt:
     for line in removedTP:
         rt.write(line + "\n")
 
