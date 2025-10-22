@@ -18,14 +18,17 @@ while True:
     except ValueError:
         print("invalid value, try again")
 
-trueoutput = f"output-inspection/{fileName}-truepositive.csv"
-falseoutput = f"output-inspection/{fileName}-falsepositive.csv"
+trueoutput = f"inspect-output/{fileName}-truepositive.csv"
+falseoutput = f"inspect-output/{fileName}-falsepositive.csv"
 
 tp = 0
 fp = 0
 
 os.makedirs(os.path.dirname(trueoutput), exist_ok=True)
 os.makedirs(os.path.dirname(falseoutput), exist_ok=True)
+
+with open(filePath, 'r') as file:
+    fileLines = sum(1 for _ in file)
 
 with open(filePath, "r") as file, \
         open(trueoutput, "w") as truefile, \
@@ -50,7 +53,7 @@ with open(filePath, "r") as file, \
             emailWidth = len(values[3])
         while status != "t" and status != "f":
             os.system('cls' if os.name == 'nt' else 'clear')
-            print(count)
+            print(f"{fileLines} / {count}")
             print(f"{values[0]:<{nameWidth}}, {values[1]:<{emailWidth}}")
             print(f"{values[2]:<{nameWidth}}, {values[3]:<{emailWidth}}")
             status = input("t or f?")
