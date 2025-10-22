@@ -4,6 +4,7 @@ filePath = ""
 while os.path.exists(filePath) is False:
     filePath = input("Path to .csv file: ")
     fileName = os.path.basename(filePath)
+    fileName = os.path.splitext(filePath)[0]
 while True:
     lineCount = input("how many lines do you want to read? \
         press enter to read every line: ")

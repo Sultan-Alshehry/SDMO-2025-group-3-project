@@ -13,10 +13,14 @@ newTrue = ""
 while not os.path.exists(newTrue):
     newTrue = input("Path to new true positive file: ")
 
-afName = f"compare-results/{os.path.basename(newFalse)}-addedFPs.csv"
-rfName = f"compare-results/{os.path.basename(newFalse)}-removedFPs.csv"
-atName = f"compare-results/{os.path.basename(newTrue)}-addedTPs.csv"
-rtName = f"compare-results/{os.path.basename(newTrue)}-removedTPs.csv"
+afName = f"compare-results/{os.path.splitext(
+    os.path.basename(newFalse))[0]}-addedFPs.csv"
+rfName = f"compare-results/{os.path.splitext(
+    os.path.basename(newFalse))[0]}-removedFPs.csv"
+atName = f"compare-results/{os.path.splitext(
+    os.path.basename(newTrue))[0]}-addedTPs.csv"
+rtName = f"compare-results/{os.path.splitext(
+    os.path.basename(newTrue))[0]}-removedTPs.csv"
 
 addedFP = []
 addedTP = []
