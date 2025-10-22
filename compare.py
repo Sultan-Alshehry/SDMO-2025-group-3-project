@@ -8,7 +8,7 @@ while not os.path.exists(oldTrue):
     oldTrue = input("Path to old true positive file: ")
 newFalse = ""
 while not os.path.exists(newFalse):
-    newFalse = input("Path to new fale positive file: ")
+    newFalse = input("Path to new false positive file: ")
 newTrue = ""
 while not os.path.exists(newTrue):
     newTrue = input("Path to new true positive file: ")
@@ -26,13 +26,13 @@ removedTP = []
 with open(oldFalse, "r") as of, open(newFalse, "r") as nf:
     nfLines = set(line.strip() for line in nf)
     ofLines = set(line.strip() for line in of)
-    removedFP.append(ofLines - nfLines)
-    addedFP.append(nfLines - ofLines)
+    removedFP.extend(ofLines - nfLines)
+    addedFP.extend(nfLines - ofLines)
 with open(oldTrue, "r") as ot, open(newTrue, "r") as nt:
     ntLines = set(line.strip() for line in nt)
     otLines = set(line.strip() for line in ot)
-    removedFP.append(otLines - ntLines)
-    addedFP.append(ntLines - otLines)
+    removedTP.extend(otLines - ntLines)
+    addedTP.extend(ntLines - otLines)
 
 with open(afName, "w") as af:
     for line in addedFP:
