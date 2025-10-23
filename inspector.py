@@ -30,7 +30,7 @@ with open(filePath, 'r', encoding='utf-8') as file:
 
 with open(filePath, "r", encoding='utf-8') as file, \
         open(trueoutput, "w", encoding='utf-8') as truefile, \
-        open(falseoutput, "w", encoding='uft-8') as falsefile:
+        open(falseoutput, "w", encoding='utf-8') as falsefile:
 
     format = file.readline()
     count = 0
