@@ -11,13 +11,21 @@ what they did, why, and their thought process. This will be used later in the pr
 
 ## Group 0
 
-Use the example implementation to fetch the commits from a github repo URL or from the path to a
-local clone (clone is prefered)
-upload the before and after csv file to the original-implementation-output-directory
+Use the example implementation to fetch the commits from a GitHub repo URL or from the path to a
+local clone (clone is preferred for larger repositories)
+upload the before and after CSV file to the original-implementation-output-directory
 
-## Group 1
+## Group 2
 
+* Generate quality report
 
+* Make the source code more modular and separate it into functions
+
+* Use the python unittest module to create unit tests for each function
+
+* Review the results of the tests and if needed modify the source code
+
+* Write down the changes in the results if the source code was modified
 
 ## Reporting
 
