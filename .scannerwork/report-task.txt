@@ -1,6 +1,0 @@
-projectKey=my-github-repo
-serverUrl=http://localhost:9000
-serverVersion=25.10.0.114319
-dashboardUrl=http://localhost:9000/dashboard?id=my-github-repo
-ceTaskId=8ce49549-0064-4c91-bb99-cab321855c6e
-ceTaskUrl=http://localhost:9000/api/ce/task?id=8ce49549-0064-4c91-bb99-cab321855c6e
