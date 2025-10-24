@@ -75,6 +75,8 @@ def process(dev):
 
     return name, first, last, i_first, i_last, email, prefix
 
+# sultan's testing part ends here
+
 
 # Compute similarity between all possible pairs
 SIMILARITY = []
