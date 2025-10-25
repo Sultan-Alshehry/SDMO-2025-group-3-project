@@ -6,36 +6,35 @@ from itertools import combinations
 from Levenshtein import ratio as sim
 import os
 
-# This block of code take the repository, fetches all the commits,
-# retrieves name and email of both the author and commiter and saves the unique
-# pairs to csv
-# If you provide a URL, it clones the repo, fetches the commits and then deletes it,
-# so for a big project better clone the repo locally and provide filesystem path
 
-# from pydriller import Repository
-# DEVS = set()
-# for commit in Repository("https://github.com/electron/electron").traverse_commits():
-#     DEVS.add((commit.author.name, commit.author.email))
-#     DEVS.add((commit.committer.name, commit.committer.email))
+def import_repository(repository_name):
+    from pydriller import Repository
+    DEVS = set()
+    for commit in Repository(repository_name).traverse_commits():
+        DEVS.add((commit.author.name, commit.author.email))
+        DEVS.add((commit.committer.name, commit.committer.email))
 
-# DEVS = sorted(DEVS)
+    DEVS = sorted(DEVS)
 
-# with open(os.path.join("devs", "devs.csv"), 'w', newline='') as csvfile:
-#     writer = csv.writer(csvfile, delimiter=',', quotechar='"')
-#     writer.writerow(["name", "email"])
-#     writer.writerows(DEVS)
+    with open(os.path.join("devs", "devs.csv"), 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile, delimiter=',', quotechar='"')
+        writer.writerow(["name", "email"])
+        writer.writerows(DEVS)
+
 
 # This block of code reads an existing csv of developers
 
-DEVS = []
-# Read csv file with name,dev columns
 
-with open(os.path.join("devs", "1k_devs_similarity_t=7.csv"), 'r', newline='') as csvfile:
-    reader = csv.reader(csvfile, delimiter=',')
-    for row in reader:
-        DEVS.append(row)
-# First element is header, skip
-DEVS = DEVS[1:]
+def read_developers(developers="devs.csv"):
+    DEVS = []
+    # Read csv file with name,dev columns
+    with open(os.path.join("devs", developers), 'r', newline='') as csvfile:
+        reader = csv.reader(csvfile, delimiter=',')
+        for row in reader:
+            DEVS.append(row)
+    # First element is header, skip
+    DEVS = DEVS[1:]
+    return DEVS
 
 
 # Function for pre-processing each name,email
@@ -61,7 +60,8 @@ def process(dev):
     # If there is no space, firstname is full name, lastname empty
     elif len(parts) == 1:
         first, last = name, ""
-    # If there is more than 1 space, firstname is until first space, rest is lastname
+    # If there is more than 1 space, firstname is until first space,
+    # rest is lastname
     else:
         first, last = parts[0], " ".join(parts[1:])
 
@@ -79,72 +79,82 @@ def process(dev):
 
 
 # Compute similarity between all possible pairs
-SIMILARITY = []
-for dev_a, dev_b in combinations(DEVS, 2):
-    # Pre-process both developers
-    name_a, first_a, last_a, i_first_a, i_last_a, email_a, prefix_a = process(
-        dev_a)
-    name_b, first_b, last_b, i_first_b, i_last_b, email_b, prefix_b = process(
-        dev_b)
-
-    # Conditions of Bird heuristic
-    # Adam Buckland,adam.buckland@rightscale.com,Adam Drago,atdrago@gmail.com,0.5217391304347826,0.30000000000000004,1.0,0.15384615384615385,False,False,False,True
-    # full name sim
-    c1 = sim(name_a, name_b)
-    # prefix sim
-    c2 = sim(prefix_b, prefix_a)
-    # first name sim
-    c31 = sim(first_a, first_b)
-    # last name sim
-    c32 = sim(last_a, last_b)
-
-    if c1 < 0.6 and (c31 < 0.70 and c32 < 0.85):
-        continue
-
-    c4 = c5 = c6 = c7 = False
-
-    # Since lastname and initials can be empty, perform appropriate checks
-    if i_first_a != "" and last_a != "":
-        c4 = i_first_a in prefix_b.replace(last_a, "") and last_a in prefix_b
-
-    if i_last_a != "":
-        c5 = i_last_a in prefix_b.replace(
-            first_a, "") and first_a in prefix_b
-
-    if i_first_b != "" and last_b != "":
-        c6 = i_first_b in prefix_a.replace(last_b, "") and last_b in prefix_a
-
-    if i_last_b != "":
-        c7 = i_last_b in prefix_a.replace(
-            first_b, "") and first_b in prefix_a
-
-    # Save similarity data for each conditions. Original names are saved
-    SIMILARITY.append([dev_a[0], email_a, dev_b[0], email_b,
-                      c1, c2, c31, c32, c4, c5, c6, c7])
 
 
-# Save data on all pairs (might be too big -> comment out to avoid)
-cols = ["name_1", "email_1", "name_2", "email_2", "c1", "c2",
-        "c3.1", "c3.2", "c4", "c5", "c6", "c7"]
-df = pd.DataFrame(SIMILARITY, columns=cols)
-df = df.drop_duplicates()
+def compute_similarity(DEVS):
+    SIMILARITY = []
+    for dev_a, dev_b in combinations(DEVS, 2):
+        # Pre-process both developers
+        name_a, first_a, last_a, i_first_a, i_last_a, \
+            email_a, prefix_a = process(dev_a)
+        name_b, first_b, last_b, i_first_b, i_last_b, \
+            email_b, prefix_b = process(dev_b)
 
-# df.to_csv(os.path.join("devs", "devs_similarity.csv"),
-#         index=False, header=True)
+        # Conditions of Bird heuristic
+        # full name sim
+        c1 = sim(name_a, name_b)
+        # prefix sim
+        c2 = sim(prefix_b, prefix_a)
+        # first name sim
+        c31 = sim(first_a, first_b)
+        # last name sim
+        c32 = sim(last_a, last_b)
+
+        if c1 < 0.6 and (c31 < 0.70 and c32 < 0.85):
+            continue
+
+        c4 = c5 = c6 = c7 = False
+
+        # Since lastname and initials can be empty, perform appropriate checks
+        if i_first_a != "" and last_a != "":
+            c4 = i_first_a in prefix_b.replace(last_a, "")\
+                and last_a in prefix_b
+
+        if i_last_a != "":
+            c5 = i_last_a in prefix_b.replace(
+                first_a, "") and first_a in prefix_b
+
+        if i_first_b != "" and last_b != "":
+            c6 = i_first_b in prefix_a.replace(last_b, "")\
+                and last_b in prefix_a
+
+        if i_last_b != "":
+            c7 = i_last_b in prefix_a.replace(
+                first_b, "") and first_b in prefix_a
+
+        # Save similarity data for each conditions. Original names are saved
+        SIMILARITY.append([dev_a[0], email_a, dev_b[0], email_b,
+                          c1, c2, c31, c32, c4, c5, c6, c7])
+
+    # Save data on all pairs (might be too big -> comment out to avoid)
+    cols = ["name_1", "email_1", "name_2", "email_2", "c1", "c2",
+            "c3.1", "c3.2", "c4", "c5", "c6", "c7"]
+    df = pd.DataFrame(SIMILARITY, columns=cols)
+    df = df.drop_duplicates()
+    return df
+    # df.to_csv(os.path.join("devs", "devs_similarity.csv"),
+    #         index=False, header=True)
 
 
-# Set similarity threshold, check c1-c3 against the threshold
-t = 0.7
-print("Threshold:", t)
-df["c1_check"] = df["c1"] >= t
-df["c2_check"] = df["c2"] >= t
-df["c3_check"] = (df["c3.1"] >= t) & (df["c3.2"] >= t)
-# Keep only rows where at least one condition is True
-df = df[df[["c1_check", "c2_check", "c3_check",
-            "c4", "c5", "c6", "c7"]].any(axis=1)]
+def save_csv(df):
+    # Set similarity threshold, check c1-c3 against the threshold
+    t = 0.7
+    print("Threshold:", t)
+    df["c1_check"] = df["c1"] >= t
+    df["c2_check"] = df["c2"] >= t
+    df["c3_check"] = (df["c3.1"] >= t) & (df["c3.2"] >= t)
+    # Keep only rows where at least one condition is True
+    df = df[df[["c1_check", "c2_check", "c3_check",
+                "c4", "c5", "c6", "c7"]].any(axis=1)]
 
-# Omit "check" columns, save to csv
-df = df[["name_1", "email_1", "name_2", "email_2", "c1", "c2",
-        "c3.1", "c3.2", "c4", "c5", "c6", "c7"]]
-df.to_csv(os.path.join("devs", f"devs_similarity_t={
-          t}.csv"), index=False, header=True)
+    # Omit "check" columns, save to csv
+    df = df[["name_1", "email_1", "name_2", "email_2", "c1", "c2",
+            "c3.1", "c3.2", "c4", "c5", "c6", "c7"]]
+    df.to_csv(os.path.join("devs", f"devs_similarity_t={
+              t}.csv"), index=False, header=True)
+
+
+repository_name = "https://github.com/electron/electron"
+import_repository(repository_name)
+
+save_csv(compute_similarity(read_developers()))
