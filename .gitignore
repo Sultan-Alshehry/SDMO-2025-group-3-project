@@ -1,6 +1,6 @@
 __pycache__/
-devs/old/
-toold/inspect-output/
+src/devs/
+tools/inspect-output/
 tools/compare-results/
 SDMO/
 venv/
