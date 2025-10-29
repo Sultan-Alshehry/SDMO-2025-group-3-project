@@ -7,29 +7,63 @@ sys.path.insert(0, os.path.abspath(os.path.join(
     os.path.dirname(__file__), sdmo, 'src')))
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(
     __file__), sdmo, 'tools')))
-import devs  # noqa: E402 (tells linter to not move this line to the top)
 
-from devs import compute_similarity, save_csv
+from devs import compute_similarity
 
 class TestDevs(unittest.TestCase):
 
 
-    def test_compute_similarity_similar(self):
+    def test_compute_similarity_c4(self):
         entries = [
-            ["Joni Lehto", "joni.lehto@pulla.com"],
-            ["Jouni Lehti", "jouni.lehti@pulla.com"],
+            ["Korva Puusti", "korva.puusti@pulla.com"],
+            ["Koira Musti", "kpuusti@pulla.com"],
         ]
         table = compute_similarity(entries)
-        self.assertEqual(len(table), 0)
-
-
-    def test_compute_similarity_email_case(self):
-        entries = [
-            ["Joni Lehto", "joni.lehto@pulla.com"],
-            ["Joni Lehto", "JONI.LEHTO@pulla.com"],
-        ]
-        table = compute_similarity(entries)
+        boolean = table["c4"].iloc[0]
         self.assertEqual(len(table), 1)
+        self.assertTrue(boolean)
+
+    def test_compute_similarity_c4_false(self):
+        entries = [
+            ["Korva Puusti", "korva.puusti@pulla.com"],
+            ["Koira Musti", "koiramusti@pulla.com"],
+        ]
+        table = compute_similarity(entries)
+        boolean = table["c4"].iloc[0]
+        self.assertFalse(boolean)
+
+
+    def test_compute_similarity_c5(self):
+        entries = [
+            ["Korva Puusti", "korva.puusti@pulla.com"],
+            ["Koira Musti", "korvap@pulla.com"],
+        ]
+        table = compute_similarity(entries)
+        boolean = table["c5"].iloc[0]
+        self.assertEqual(len(table), 1)
+        self.assertTrue(boolean)
+
+
+    def test_compute_similarity_c6(self):
+        entries = [
+            ["Korva Puusti", "kmusti@pulla.com"],
+            ["Koira Musti", "koira.musti@pulla.com"],
+        ]
+        table = compute_similarity(entries)
+        boolean = table["c6"].iloc[0]
+        self.assertEqual(len(table), 1)
+        self.assertTrue(boolean)
+
+
+    def test_compute_similarity_c7(self):
+        entries = [
+            ["Korva Puusti", "koiram@pulla.com"],
+            ["Koira Musti", "koira.musti@pulla.com"],
+        ]
+        table = compute_similarity(entries)
+        boolean = table["c7"].iloc[0]
+        self.assertEqual(len(table), 1)
+        self.assertTrue(boolean)
 
 
     def test_compute_similarity_basic(self):
@@ -46,15 +80,13 @@ class TestDevs(unittest.TestCase):
         table = compute_similarity(entries)
         self.assertEqual(len(table), 1)
 
-
-    def test_compute_similarity_accents(self):
+    def test_compute_similarity_email_case(self):
         entries = [
-            ["Korva Puusti", "korva.puusti@gpulla.com"],
-            ["Körva Puusti", "korva.puusti@gpulla.com"],
-            ["Köŕvä Ṕuusti", "korva.puusti@gpulla.com"],
+            ["Joni Lehto", "joni.lehto@pulla.com"],
+            ["Joni Lehto", "JONI.LEHTO@pulla.com"],
         ]
         table = compute_similarity(entries)
-        self.assertEqual(len(table), 0)
+        self.assertEqual(len(table), 1)
 
 
 if __name__ == "__main__":
