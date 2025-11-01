@@ -5,3 +5,38 @@ repository: https://github.com/ggml-org/llama.cpp
 the program itself contains many false positives and it doesn't really matter setting the threshold higher as it doesn't reduce the amount almost at all. 
 And from what I've seen the program compares the similarity between the devs using matching names and emails and they could be very similiar, yet different 
 and this would fall into the category that they are the same developer even though they are not.
+
+
+group 1
+
+from repository: https://github.com/ggml-org/llama.cpp
+
+original implementation: 
+	total: 3318 
+		95 TP
+		3223 FP
+		TP/FP RATIO = 95 / 3223 = 0,0294
+
+thoughts: the original implementation works well when when the full name and email
+prefixes are similiar but the bird heuristics currently has way too many flaws:
+	initials make many false positives
+	it is sloppy as it relies heavily on substrings and it falls short because
+	it considers really short substrings too. commong lastnames seem to cause
+	false positives often too same with firstnames. maybe increase threshold on certain
+	conditions?
+
+new implementation, kinda primitive
+	total: 473
+		95 TP
+		378 FP
+		TP/FP RATIO = 95 / 378 = 0,251
+
+the new implementation: 
+if c1 < 0.6 and (c31 < 0.70 and c32 < 0.85):
+            continue
+		
+the accuracy increased significantly and it is difficult to start fine tuning the method as it requires
+to consider many special instances and that could result in missed duplicates, thus losing data. the new
+implementation just increases thresholds of two conditions (first name similarities and lastname) and joins them together.
+
+
