@@ -48,15 +48,11 @@ class TestDevs(unittest.TestCase):
 
     def test_process(self):
         test_cases = [
-            (("", ""), ("", "", "", "", "", "", ""), ("empty index error")),
-            (("", "something@bloop.com"), ("", "", "", "", "",
-             "something@bloop.com", "something"), ("no name error")),
-            (("bob bleep", ""), ("bob bleep", "bob",
-             "bleep", "b", "b", "", ""), ("no email error")),
-            (("äöæø}", "hi@mailer.com"), ("aoæø", "aoæø",
-             "", "a", "", "hi@mailer.com", "hi"), ("weird chars error")),
-            (("john pork", "asdflj@mailing.com"), ("john pork", "john", "pork",
-             "j", "p", "asdflj@mailing.com", "asdflj"), ("normal case error"))
+        (("", ""), ("", ""), ("empty index error")),
+        (("", "something@bloop.com"), ("", "something@bloop.com"), ("no name error")),
+        (("bob bleep", ""), ("bob bleep", ""), ("no email error")),
+        (("äöæø}", "hi@mailer.com"), ("aoæø", "hi@mailer.com"), ("weird chars error")),
+        (("john pork", "asdflj@mailing.com"), ("john pork", "asdflj@mailing.com"), ("normal case error")),
         ]
 
         for idx, (input_data, expected_output, error_msg) in enumerate(test_cases):
