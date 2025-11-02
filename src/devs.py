@@ -31,9 +31,9 @@ def read_developers(type, developers="1k_devs_similarity_t=7.csv"):
     with open(os.path.join("devs", developers), 'r', newline='') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         for row in reader:
-            DEVS.append(cell.strip() for cell in row[:2])
+            DEVS.append([cell.strip() for cell in row[:2]])
             if type != 0:
-                DEVS.append(cell.strip() for cell in row[2:4])
+                DEVS.append([cell.strip() for cell in row[2:4]])
     # First element is header, skip
     DEVS = DEVS[1:]
     DEVS = sorted(list(set(tuple(dev) for dev in DEVS)))
@@ -87,6 +87,7 @@ def process(dev):
 
 def compute_similarity(DEVS):
     SIMILARITY = []
+
     for dev_a, dev_b in combinations(DEVS, 2):
         # Pre-process both developers
         name_a, first_a, last_a, i_first_a, i_last_a, \
@@ -99,15 +100,17 @@ def compute_similarity(DEVS):
         # Conditions of Bird heuristic
         c1 = email_a == email_b
 
-        if len(name_a) > 3 and len(name_b) > 3:
+        if len(name_a) > 4 and len(name_b) > 4:
             c2 = name_a == name_b
 
+        if len(name_a) > 7 and len(name_b) > 7:
+            c3 = name_a in name_b or name_b in name_a or name_b in name_a
         # Save similarity data for each conditions. Original names are saved
         SIMILARITY.append([dev_a[0], email_a, dev_b[0], email_b,
-                          c1, c2])
+                          c1, c2, c3])
 
     # Save data on all pairs (might be too big -> comment out to avoid)
-    cols = ["name_1", "email_1", "name_2", "email_2", "c1", "c2"]
+    cols = ["name_1", "email_1", "name_2", "email_2", "c1", "c2", "c3"]
     df = pd.DataFrame(SIMILARITY, columns=cols)
     df = df.drop_duplicates()
     return df
@@ -118,10 +121,10 @@ def compute_similarity(DEVS):
 def save_csv(df):
     # Set similarity threshold, check c1-c3 against the threshold
     # Keep only rows where at least one condition is True
-    df = df[df[["c1", "c2"]].any(axis=1)]
+    df = df[df[["c1", "c2", "c3"]].any(axis=1)]
 
     # Omit "check" columns, save to csv
-    df = df[["name_1", "email_1", "name_2", "email_2", "c1", "c2"]]
+    df = df[["name_1", "email_1", "name_2", "email_2", "c1", "c2", "c3"]]
     df.to_csv(os.path.join("devs", "devs_similarity.csv"),
               index=False, header=True)
 
