@@ -30,11 +30,8 @@ def read_developers(developers="devs.csv"):
         reader = csv.reader(csvfile, delimiter=',')
         for row in reader:
             DEVS.append([cell.strip() for cell in row[:2]])
-            DEVS.append([cell.strip() for cell in row[2:4]])
     # First element is header, skip
     DEVS = DEVS[1:]
-    DEVS = sorted(list(set(tuple(dev) for dev in DEVS)))
-    DEVS = [list(dev) for dev in DEVS]
     return DEVS
 
 
