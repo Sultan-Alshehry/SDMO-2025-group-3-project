@@ -23,7 +23,7 @@ def import_repository(repository_name):
 
 # This block of code reads an existing csv of developers
 
-def read_developers(developers="1k_devs_similarity_t=7.csv"):
+def read_developers(developers="devs.csv"):
     DEVS = []
     # Read csv file with name,dev columns
     with open(os.path.join("devs", developers), 'r', newline='', encoding='utf-8') as csvfile:
@@ -52,32 +52,10 @@ def process(dev):
     name = name.casefold()
     # Strip whitespace
     name = " ".join(name.split())
-
-    # Attempt to split name into firstname, lastname by space
-    parts = name.split(" ")
-    # Expected case
-    if len(parts) == 2:
-        first, last = parts
-    # If there is no space, firstname is full name, lastname empty
-    elif len(parts) == 1:
-        first, last = name, ""
-    # If there is more than 1 space, firstname is until first space,
-    # rest is lastname
-    else:
-        first, last = parts[0], " ".join(parts[1:])
-
-    # Take initials of firstname and lastname if they are long enough
-    i_first = first[0] if len(first) > 1 else ""
-    i_last = last[0] if len(last) > 1 else ""
-
-    # Determine email prefix
+    # get email
     email: str = dev[1]
-    prefix = email.split("@")[0]
 
-    return name, first, last, i_first, i_last, email, prefix
-
-# sultan's testing part ends here
-
+    return name, email
 
 # Compute similarity between all possible pairs
 
@@ -87,16 +65,16 @@ def compute_similarity(DEVS):
 
     for dev_a, dev_b in combinations(DEVS, 2):
         # Pre-process both developers
-        name_a, first_a, last_a, i_first_a, i_last_a, \
-            email_a, prefix_a = process(dev_a)
-        name_b, first_b, last_b, i_first_b, i_last_b, \
-            email_b, prefix_b = process(dev_b)
+        name_a, email_a = process(dev_a)
+        name_b, email_b = process(dev_b)
 
         c1 = c2 = False
 
         # Conditions of Bird heuristic
+        # emails are identical
         c1 = email_a == email_b
 
+        # non-short names are identical
         if len(name_a) > 4 and len(name_b) > 4:
             c2 = name_a == name_b
 
@@ -114,7 +92,6 @@ def compute_similarity(DEVS):
 
 
 def save_csv(df):
-    # Set similarity threshold, check c1-c3 against the threshold
     # Keep only rows where at least one condition is True
     df = df[df[["c1", "c2"]].any(axis=1)]
 
