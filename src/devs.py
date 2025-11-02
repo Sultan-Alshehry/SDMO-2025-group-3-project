@@ -124,6 +124,7 @@ def save_csv(df):
               index=False, header=True)
 
 
-repository_name = input("Repository URL: ")
-import_repository(repository_name)
-save_csv(compute_similarity(read_developers()))
+if __name__ == '__main__':
+    repository_name = input("Repository URL: ")
+    import_repository(repository_name)
+    save_csv(compute_similarity(read_developers()))
