@@ -85,8 +85,8 @@ class TestDevs(unittest.TestCase):
 
     def test_compute_similarity_c2_length_exact(self):
         short_entries = [
-            ["Koo", "korva.puusti@pulla.com"],
-            ["Koo", "koira.musti@pulla.com"],
+            ["Koor", "korva.puusti@pulla.com"],
+            ["Koor", "koira.musti@pulla.com"],
         ]
         table = devs.compute_similarity(short_entries)
         boolean = table["c2"].iloc[0]
@@ -94,8 +94,8 @@ class TestDevs(unittest.TestCase):
 
     def test_compute_similarity_c2_short(self):
         short_entries = [
-            ["Ko", "korva.puusti@pulla.com"],
-            ["Ko", "koira.musti@pulla.com"],
+            ["Kor", "korva.puusti@pulla.com"],
+            ["Kor", "koira.musti@pulla.com"],
         ]
         table = devs.compute_similarity(short_entries)
         boolean = table["c2"].iloc[0]
@@ -103,8 +103,8 @@ class TestDevs(unittest.TestCase):
 
     def test_compute_similarity_c2_longer(self):
         short_entries = [
-            ["Korv", "korva.puusti@pulla.com"],
-            ["Korv", "koira.musti@pulla.com"],
+            ["Korva", "korva.puusti@pulla.com"],
+            ["Korva", "koira.musti@pulla.com"],
         ]
         table = devs.compute_similarity(short_entries)
         boolean = table["c2"].iloc[0]
