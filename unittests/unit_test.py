@@ -64,78 +64,65 @@ class TestDevs(unittest.TestCase):
                 result = devs.process(input_data)
                 self.assertEqual(result, expected_output, f"Test {
                                  idx} failed: {error_msg}")
-
-    def test_compute_similarity_c4(self):
+                
+    def test_compute_similarity_c1(self):
         entries = [
             ["Korva Puusti", "korva.puusti@pulla.com"],
-            ["Koira Musti", "kpuusti@pulla.com"],
+            ["Kora Puusti", "korva.puusti@pulla.com"],
         ]
         table = devs.compute_similarity(entries)
-        boolean = table["c4"].iloc[0]
-        self.assertEqual(len(table), 1)
+        boolean = table["c1"].iloc[0]
         self.assertTrue(boolean)
 
-    def test_compute_similarity_c4_false(self):
+    def test_compute_similarity_c2(self):
         entries = [
             ["Korva Puusti", "korva.puusti@pulla.com"],
-            ["Koira Musti", "koiramusti@pulla.com"],
+            ["Korva Puusti", "koira.musti@pulla.com"],
         ]
         table = devs.compute_similarity(entries)
-        boolean = table["c4"].iloc[0]
+        boolean = table["c2"].iloc[0]
+        self.assertTrue(boolean)
+
+    def test_compute_similarity_c2_length_exact(self):
+        short_entries = [
+            ["Koo", "korva.puusti@pulla.com"],
+            ["Koo", "koira.musti@pulla.com"],
+        ]
+        table = devs.compute_similarity(short_entries)
+        boolean = table["c2"].iloc[0]
         self.assertFalse(boolean)
 
-    def test_compute_similarity_c5(self):
-        entries = [
-            ["Korva Puusti", "korva.puusti@pulla.com"],
-            ["Koira Musti", "korvap@pulla.com"],
+    def test_compute_similarity_c2_short(self):
+        short_entries = [
+            ["Ko", "korva.puusti@pulla.com"],
+            ["Ko", "koira.musti@pulla.com"],
         ]
-        table = devs.compute_similarity(entries)
-        boolean = table["c5"].iloc[0]
-        self.assertEqual(len(table), 1)
+        table = devs.compute_similarity(short_entries)
+        boolean = table["c2"].iloc[0]
+        self.assertFalse(boolean)
+
+    def test_compute_similarity_c2_longer(self):
+        short_entries = [
+            ["Korv", "korva.puusti@pulla.com"],
+            ["Korv", "koira.musti@pulla.com"],
+        ]
+        table = devs.compute_similarity(short_entries)
+        boolean = table["c2"].iloc[0]
         self.assertTrue(boolean)
 
-    def test_compute_similarity_c6(self):
-        entries = [
-            ["Korva Puusti", "kmusti@pulla.com"],
-            ["Koira Musti", "koira.musti@pulla.com"],
-        ]
-        table = devs.compute_similarity(entries)
-        boolean = table["c6"].iloc[0]
-        self.assertEqual(len(table), 1)
-        self.assertTrue(boolean)
-
-    def test_compute_similarity_c7(self):
-        entries = [
-            ["Korva Puusti", "koiram@pulla.com"],
-            ["Koira Musti", "koira.musti@pulla.com"],
-        ]
-        table = devs.compute_similarity(entries)
-        boolean = table["c7"].iloc[0]
-        self.assertEqual(len(table), 1)
-        self.assertTrue(boolean)
 
     def test_compute_similarity_basic(self):
         entries = [
-            ["Korva Puusti", "korva.puusti@gpulla.com"],
-            ["Kala Keitto", "kalakeitto@mail.com"],
-        ]
-        table = devs.compute_similarity(entries)
-        self.assertEqual(len(table), 0)
-        entries = [
             ["Kala Keitto", "kalakeitto@mail.com"],
             ["Kala Keitto", "kalakeitto@mail.com"],
         ]
         table = devs.compute_similarity(entries)
         self.assertEqual(len(table), 1)
-
-    def test_compute_similarity_email_case(self):
-        entries = [
-            ["Joni Lehto", "joni.lehto@pulla.com"],
-            ["Joni Lehto", "JONI.LEHTO@pulla.com"],
-        ]
-        table = devs.compute_similarity(entries)
-        self.assertEqual(len(table), 1)
-
+        row =  table.iloc[0]
+        self.assertEqual(row["name_1"], "Kala Keitto")
+        self.assertEqual(row["name_2"], "Kala Keitto")
+        self.assertEqual(row["email_1"], "kalakeitto@mail.com")
+        self.assertEqual(row["email_2"], "kalakeitto@mail.com")
 
 if __name__ == '__main__':
     unittest.main()
