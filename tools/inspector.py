@@ -39,23 +39,27 @@ with open(filePath, "r", encoding='utf-8') as file, \
         if lineCount != "" and count >= lineCount:
             break
 
-        status = ""
         values = line.strip().split(',')
-        if len(values[0]) > len(values[2]):
-            nameWidth = len(values[0])
-        else:
-            nameWidth = len(values[2])
-        if len(values[1]) > len(values[3]):
-            emailWidth = len(values[1])
-        else:
-            emailWidth = len(values[3])
-        while status != "t" and status != "f":
-            os.system('cls' if os.name == 'nt' else 'clear')
-            print(f"{fileLines} / {count}")
-            print(f"{values[0]:<{nameWidth}}, {values[1]:<{emailWidth}}")
-            print(f"{values[2]:<{nameWidth}}, {values[3]:<{emailWidth}}")
-            status = input("t or f?")
+        if values[1] != values[3]:
 
+            if len(values[0]) > len(values[2]):
+                nameWidth = len(values[0])
+            else:
+                nameWidth = len(values[2])
+            if len(values[1]) > len(values[3]):
+                emailWidth = len(values[1])
+            else:
+                emailWidth = len(values[3])
+            status = ""
+            while status != "t" and status != "f":
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print(f"{fileLines} / {count}")
+                print(f"{values[0]:<{nameWidth}}, {values[1]:<{emailWidth}}")
+                print(f"{values[2]:<{nameWidth}}, {values[3]:<{emailWidth}}")
+                status = input("t or f?")
+
+        else:
+            status = "t"
         if status == "t":
             truefile.write(line)
             tp += 1
