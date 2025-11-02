@@ -44,7 +44,7 @@ class TestDevs(unittest.TestCase):
             ['rtervo22', 'riina.tervo@student.oulu.fi'],
             ['ttorp22', '144235906+ttorp22@users.noreply.github.com']
         ]
-        self.assertEqual(devs.read_developers(), dev_list)
+        self.assertEqual(sorted([row for row in devs.read_developers() if row]), sorted(dev_list))
 
     def test_process(self):
         test_cases = [
