@@ -25,15 +25,19 @@ def import_repository(repository_name):
 # This block of code reads an existing csv of developers
 
 
-def read_developers(developers="1k_devs_similarity_t=7.csv"):
+def read_developers(type, developers="1k_devs_similarity_t=7.csv"):
     DEVS = []
     # Read csv file with name,dev columns
     with open(os.path.join("devs", developers), 'r', newline='') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         for row in reader:
-            DEVS.append(cell.strip() for cell in row)
+            DEVS.append(cell.strip() for cell in row[:2])
+            if type != 0:
+                DEVS.append(cell.strip() for cell in row[2:4])
     # First element is header, skip
     DEVS = DEVS[1:]
+    DEVS = sorted(list(set(tuple(dev) for dev in DEVS)))
+    DEVS = [list(dev) for dev in DEVS]
     return DEVS
 
 
@@ -118,14 +122,22 @@ def save_csv(df):
 
     # Omit "check" columns, save to csv
     df = df[["name_1", "email_1", "name_2", "email_2", "c1", "c2"]]
-    df.to_csv(os.path.join("devs", f"devs_similarity.csv"),
+    df.to_csv(os.path.join("devs", "devs_similarity.csv"),
               index=False, header=True)
 
 
 choice = input(
-    "Do you want to 1: read repo url or 2: read developer csv file?\n")
+    "Do you want to 1: read repo url or 2: read developer csv file or 3: read similarity csv file?\n")
+type = 0
 if choice == '1':
-    repository_name = input("repo url: ")
+    txt = "repo url: "
+elif choice == 2:
+    txt = "path: "
+    repository_name = input(txt)
     import_repository(repository_name)
 
-save_csv(compute_similarity(read_developers()))
+if choice == 3:
+    type = 1
+
+
+save_csv(compute_similarity(read_developers(type)))
