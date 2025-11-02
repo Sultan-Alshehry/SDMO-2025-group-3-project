@@ -124,11 +124,6 @@ def save_csv(df):
               index=False, header=True)
 
 
-choice = input(
-    "Do you want to 1: read repo url or 2: read developer csv file or?\n")
-type = 0
-if choice == '1':
-    repository_name = input("Repository URL: ")
-    import_repository(repository_name)
-if choice == '2':
-    save_csv(compute_similarity(read_developers()))
+repository_name = input("Repository URL: ")
+import_repository(repository_name)
+save_csv(compute_similarity(read_developers()))
